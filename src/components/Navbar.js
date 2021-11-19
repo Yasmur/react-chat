@@ -5,19 +5,20 @@ import Button from "@mui/material/Button";
 import  Grid from "@mui/material/Grid";
 import {NavLink} from "react-router-dom";
 import {LOGIN_ROUTE} from "../utils/consts";
-// import {Context} from "../index";
-// import {useAuthState} from "react-firebase-hooks/auth";
+import {Context} from "../index";
+import {useAuthState} from "react-firebase-hooks/auth";
+import { useContext } from "react";
 
 const Navbar = () => {
-    // const {auth} = useContext(Context)
-    // const [user] = useAuthState(auth)
-const user = true;
+    const {auth} = useContext(Context)
+    const [user] = useAuthState(auth)
+
     return (
         <AppBar color={"primary"} position="static">
             <Toolbar variant={"dense"}>
                 <Grid container justifyContent={"flex-end"}>
                     {user ?
-                        <Button  variant={"contained"}>Выйти</Button>
+                        <Button onClick={() => auth.signOut()}  variant={"contained"}>Выйти</Button>
                         :
                         <NavLink to={LOGIN_ROUTE}>
                             <Button variant={"contained"}>Логин</Button>
@@ -28,5 +29,5 @@ const user = true;
         </AppBar>
     );
 };
-// onClick={() => auth.signOut()}
+
 export default Navbar;
